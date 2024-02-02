@@ -6,19 +6,35 @@ const server = http.createServer((req,res) => {
     const url = req.url
 
     if(url === '/home'){
-        res.write('Welcome home');
+        res.write('<html>');
+        res.write('<head><title>WELCOME HOME</title><head>');
+        res.write('<body><h1>WELCOME HOME</h1></body>');
+        res.write('</html>');
+        
         res.end();
     }
     else if( url === '/about' ){
-        res.write('Welcome to About Us page');
+        res.write('<html>');
+        res.write('<head><title>About Page</title></head>');
+        res.write('<body><h1>Welcome to About Us page</h1></body>')
+        res.write('</html');
+        
         res.end();
     }
     else if(url === '/node'){
-        res.write('Welcome to my Node Js project');
+        res.write('<html>');
+        res.write('<head><title>Node Js project</title></head>');
+        res.write('<body><h1>Welcome to my Node Js project</h1></body>');
+        res.write('</html>');
+        
         res.end();
     }
     else{
-        res.write('Hello');
+        res.write('<html>');
+        res.write('<head>');
+        res.write('<body><h1>HELLO</h1></body>');
+        res.write('</html>');
+        
         res.end();
     }
 })
