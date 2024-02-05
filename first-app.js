@@ -11,10 +11,42 @@ const server = http.createServer((req,res) => {
 
     if(url==='/'){
         //res.setHeader('Content-Type','text/html')
-        res.write('<html>');
-        res.write('<head><title>WELCOME HOME</title><head>');
-        res.write('<body> <form action="/message" method="Post"><label for="message">Message : </label><input type="text" placeholder="Type your Message Here" name="message"> <button>Send</button> </form> </body>');
-        res.write('</html>');
+        // let data=''
+        // fs.readFile('Message.text',(error,data)=>{
+        //     if (error){
+        //         console.log(error)
+        //     }
+        //     else{
+        //         console.log(data.toString(),'data console')
+        //         data= data.toString();
+        //     }
+        // })
+        async function read(){
+            const fileData= await fs.promises.readFile('Message.text');
+            const data = fileData.toString();
+            console.log(data,'data')
+            
+            // res.write('<html>');
+            // res.write('<head><title>WELCOME HOME</title><head>');
+            // res.write('<body>  <form action="/message" method="Post"><label for="message">Message : </label><input type="text" placeholder="Type your Message Here" name="message"> <button>Send</button> </form> </body>');
+            // res.write('</html>');
+            // res.end();
+            res.write('<html>');
+            res.write('<head><title>WELCOME HOME</title><head>');
+            res.write('<body>');
+            res.write('<h4>Message to display:</h4>');
+            res.write('<h5>' + data + '</h5>');
+            res.write('<form action="/message" method="Post">');
+            res.write('<label for="message">Message: </label>');
+            res.write('<input type="text" placeholder="Type your Message Here" name="message">');
+            res.write('<button>Send</button>');
+            res.write('</form>');
+            res.write('</body>');
+            res.write('</html>');
+            res.end();
+
+        }
+        read()
         
     }
     
@@ -27,12 +59,13 @@ const server = http.createServer((req,res) => {
             body.push(chunks)
         })
 
-         req.on('end',() => {
+        return req.on('end',() => {
             const parsedBody = Buffer.concat(body).toString();
             console.log(parsedBody)
             const message = parsedBody.split('=')[1]
             fs.writeFileSync('Message.text',message);
-            
+            //res.write(message);
+             
             res.statusCode = 302;
             res.setHeader('Location','/');
             return res.end();
