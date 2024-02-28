@@ -8,4 +8,4 @@ const pool = mysql.createPool({
 });
 
 
-module.exports = pool.prommise();
+module.exports = pool.promise();
