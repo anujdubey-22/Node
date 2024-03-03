@@ -3,12 +3,14 @@
     </head>
 
     <body>
+        <% console.log(path,'path in product-list ejs' ) %>
         <%- include('../includes/navigation.ejs') %>
 
             <main>
                 <% if (prods.length > 0) { %>
                     <div class="grid">
                         <% for (let product of prods) { %>
+                            <% console.log(product.id,'product in product-list ejs' ) %>
                             <article class="card product-item">
                                 <header class="card__header">
                                     <h1 class="product__title">
